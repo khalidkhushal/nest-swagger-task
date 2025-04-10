@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, ILike, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { ListTaskDto } from './dto/list-task.dto';
+import { PaginatedData } from 'src/common/paginatedData';
 
 interface PaginationOptions {
   page?: number;
@@ -39,15 +40,7 @@ export class TaskService {
     }
   }
 
-  async findAll(page: number, pageSize: number, filters: ListTaskDto):Promise<{
-    data: Task[],
-    pagination: {
-      total: number,
-      page: number,
-      pageSize: number,
-      pageCount: number
-    }
-  }> {
+  async findAll(page: number, pageSize: number, filters: ListTaskDto):Promise<PaginatedData<Task>> {
 
     const list = await this.findWithPagination({page, pageSize,filters })
     return list
@@ -58,15 +51,7 @@ export class TaskService {
     return task
   }
 
-  async findWithPagination(options: PaginationOptions = {}): Promise<{
-    data: Task[],
-    pagination: {
-      total: number,
-      page: number,
-      pageSize: number,
-      pageCount: number
-    }
-}> {
+  async findWithPagination(options: PaginationOptions = {}): Promise<PaginatedData<Task>> {
     const { page = 1, pageSize = 10, filters = {} } = options;
     const where: FindOptionsWhere<Task>[] = [];
     for (const key in filters) {
