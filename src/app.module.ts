@@ -17,7 +17,7 @@ import { Task } from './task/entities/task.entity';
       username: process.env.POSTGRES_USER,
       database: process.env.POSTGRES_DB,
       entities: [Task],
-      synchronize: true,
+      synchronize: process.env.NODE_ENV == 'dev' ? true: false,
       logging: false,
     }),
     TaskModule,

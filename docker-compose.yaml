@@ -12,7 +12,7 @@ services:
         POSTGRES_PASSWORD: Qwerty12
         POSTGRES_INITDB_ARGS: "--lc-collate=C --lc-ctype=C"
       ports:
-        - 5432:5432
+        - 5433:5432
       depends_on: []
       networks: ["test"]
       restart: "always"
@@ -22,6 +22,7 @@ services:
       container_name: "backend-service"
       environment:
         PORT: 3000
+        NODE_ENV: test
         DB_TYPE: postgres 
         POSTGRES_DB: test
         POSTGRES_HOST: postgres
