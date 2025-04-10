@@ -41,10 +41,12 @@ export class TaskService {
 
   async findAll(page: number, pageSize: number, filters: ListTaskDto):Promise<{
     data: Task[],
-    total: number,
-    page: number,
-    pageSize: number,
-    pageCount: number
+    pagination: {
+      total: number,
+      page: number,
+      pageSize: number,
+      pageCount: number
+    }
   }> {
 
     const list = await this.findWithPagination({page, pageSize,filters })
@@ -58,10 +60,12 @@ export class TaskService {
 
   async findWithPagination(options: PaginationOptions = {}): Promise<{
     data: Task[],
-    total: number,
-    page: number,
-    pageSize: number,
-    pageCount: number
+    pagination: {
+      total: number,
+      page: number,
+      pageSize: number,
+      pageCount: number
+    }
 }> {
     const { page = 1, pageSize = 10, filters = {} } = options;
     const where: FindOptionsWhere<Task>[] = [];
@@ -100,10 +104,12 @@ export class TaskService {
 
     return {
       data: tasks,
-      total,
-      page,
-      pageSize,
-      pageCount: Math.ceil(total / pageSize),
+      pagination: { 
+        total,
+        page,
+        pageSize,
+        pageCount: Math.ceil(total / pageSize),
+      }
     };
   }
 
