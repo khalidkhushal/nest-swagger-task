@@ -7,7 +7,13 @@ import { AllExceptionsFilter } from './common/handleError';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // app.setGlobalPrefix("/api/v1") // we can add global prefix as well fro APIs But I have added with every API to access root (/) without global prefix
+  
+  app.enableCors({
+    origin: '*', 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+    credentials: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Tasks')
