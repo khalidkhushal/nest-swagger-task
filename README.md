@@ -44,16 +44,18 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-```
 
 ## Deployment
 
-```
 Please see docker-compose file.
 
 RUN:
+```
  docker compose -f docker-compose up -d
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+It will run `postgres` on port `5432` and `backend service` on port `3000`
 
+## Swagger API Docs
+
+See `http://localhost:3000/api` for Swagger API docs 
